@@ -1,0 +1,27 @@
+[
+    {
+      "server": {
+        "name": "your server custom name here",
+        "battleMetricsId": "your BattleMetric server id here",
+        "battleMetricsToken": "your BattleMetric API token here",
+      },
+      "botToken": "your bot token here"
+    },
+    {
+      "server": {
+        "name": "your server custom name here",
+        "battleMetricsId": "your BattleMetric server id here",
+        "battleMetricsToken": "your BattleMetric API token here",
+      },
+      "botToken": "your bot token here"
+    },
+    {
+      "server": {
+        "name": "your server custom name here",
+        "battleMetricsId": "your BattleMetric server id here",
+        "battleMetricsToken": "your BattleMetric API token here",
+      },
+      "botToken": "your bot token here"
+    }
+  ]
+  
