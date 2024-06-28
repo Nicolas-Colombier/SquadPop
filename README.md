@@ -17,6 +17,8 @@
     <a href="https://github.com/Nicolas-Colombier/SquadPop#usage--management">Usage & Management</a> •
     <a href="https://github.com/Nicolas-Colombier/SquadPop#credits">Credits</a>
 </p>
+
+<img src="assets/SquadPop_demo.png" alt="Logo" width="200"/>
 </div>
 
 <br>
