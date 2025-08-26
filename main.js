@@ -34,10 +34,10 @@ serverConfigs.forEach(({ server, botToken }) => {
             // Create the activity message
             const activityMessage = `${serverInfo.players}/${serverInfo.maxPlayers + serverInfo.details.squad_playerReserveCount}` +
                 `${serverInfo.details.publicQueue > 0 ? ` (+${serverInfo.details.publicQueue})` : ''}` +
-                ` | ${serverInfo.details.map}`;
+                ` | ${serverInfo.details.map.replace(/_/g, ' ')}`;
 
             // Update the bot activity
-            client.user.setActivity(activityMessage, { type: ActivityType.Playing });
+            client.user.setPresence({activities: [{name: activityMessage, type:4,}], status: 'online' });
             console.log(`Updating activity for ${serverConfig.name} : ${activityMessage}`);
         } catch (error) {
             console.error(`Error while updating activity for ${serverConfig.name}:`, error);
