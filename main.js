@@ -1,4 +1,6 @@
-import axios from 'axios';
+import { updateServerStatus } from "./methods/updateServerStatus.js";
+import { handleConnectInteraction, registerConnectCommand } from "./commands/connectCommand.js";
+import { startConnectUpdater } from "./methods/connectUpdater.js";
 import { Client, GatewayIntentBits, ActivityType } from 'discord.js';
 import serverConfigs from './config.json' with { type: "json" };
 
@@ -12,35 +14,34 @@ serverConfigs.forEach(({ server, botToken }) => {
     });
 
     // When the bot is ready, update the server status
-    client.on('ready', () => {
+    client.on('clientReady', async () => {
         console.log(`Connected as : ${client.user.tag}`);
-        updateServerStatus(client, server);
-        // Update the server status every 10 seconds
-        setInterval(() => updateServerStatus(client, server), 10000);
+
+        // Register /connect for THIS bot
+        try {
+            await registerConnectCommand(client, server);
+            console.log(`/connect command registered for ${server.name}`);
+        } catch (e) {
+            console.error(`Failed to register /connect for ${server.name}:`, e);
+        }
+
+        // Update the server activity every 60 seconds
+        await updateServerStatus(client, server);
+        setInterval(() => updateServerStatus(client, server), 60000);
+
+        // Start the /connect message updater
+        await startConnectUpdater(client, server);
     });
 
-    // Method to update the bot activity
-    async function updateServerStatus(client, serverConfig) {
+    // Handle interactions for the /connect command
+    client.on("interactionCreate", async (interaction) => {
         try {
-            // Fetch the server information from the BattleMetrics API
-            const response = await axios.get(`https://api.battlemetrics.com/servers/${serverConfig.battleMetricsId}`, {
-                headers: {
-                    'Authorization': `Bearer ${serverConfig.battleMetricsToken}`
-                }
-            });
-
-            const serverInfo = response.data.data.attributes;
-
-            // Create the activity message
-            const activityMessage = `${serverInfo.players}/${serverInfo.maxPlayers + serverInfo.details.squad_playerReserveCount}` +
-                `${serverInfo.details.publicQueue > 0 ? ` (+${serverInfo.details.publicQueue})` : ''}` +
-                ` | ${serverInfo.details.map.replace(/_/g, ' ')}`;
-
-            // Update the bot activity
-            client.user.setPresence({activities: [{name: activityMessage, type:4,}], status: 'online' });
-            console.log(`Updating activity for ${serverConfig.name} : ${activityMessage}`);
-        } catch (error) {
-            console.error(`Error while updating activity for ${serverConfig.name}:`, error);
+            await handleConnectInteraction(interaction, server);
+        } catch (e) {
+            console.error("Interaction error:", e);
+            if (interaction.isRepliable()) {
+                await interaction.reply({content: "❌ Something went wrong.", flags: MessageFlags.Ephemeral }).catch(() => {});
+            }
         }
-    }
+    });
 });

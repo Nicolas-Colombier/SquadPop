@@ -4,6 +4,7 @@
         "name": "your server custom name here",
         "battleMetricsId": "your BattleMetric server id here",
         "battleMetricsToken": "your BattleMetric API token here",
+        "corruptedBrowserLink": "your corrupted browser server link here"
       },
       "botToken": "your bot token here"
     },
@@ -12,6 +13,7 @@
         "name": "your server custom name here",
         "battleMetricsId": "your BattleMetric server id here",
         "battleMetricsToken": "your BattleMetric API token here",
+        "corruptedBrowserLink": "your corrupted browser server link here"
       },
       "botToken": "your bot token here"
     },
@@ -20,6 +22,7 @@
         "name": "your server custom name here",
         "battleMetricsId": "your BattleMetric server id here",
         "battleMetricsToken": "your BattleMetric API token here",
+        "corruptedBrowserLink": "your corrupted browser server link here"
       },
       "botToken": "your bot token here"
     }

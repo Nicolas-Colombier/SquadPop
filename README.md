@@ -25,7 +25,7 @@
 
 ## Overview
 
-**SquadPop** is a Discord bot adapted to display the population of your favorite Squad servers on any Discord server. It does not require RCON access to the Squad server, and use the BattleMetrics API to get the information. You can display the population of multiple servers at the same time.
+**SquadPop** is a Discord bot adapted to display the population of your favorite Squad servers on any Discord server. It does not require RCON access to the Squad server, and use the BattleMetrics API to get the information. You can display the population of multiple servers at the same time. You can also use the /connect command to create an embed with the server information and a connect link.
 
 If you need help, contact me on Discord : **nom4de**
 
@@ -180,3 +180,4 @@ sudo journalctl -fu squadpop
 ## Credits
 
 - [Foxinou](https://github.com/FoxinouFR) - For the original idea and the first version of the bot
+- [Corrupted Infantry](https://browser.corrupted-infantry.com) - For the web browser used for the connect button
