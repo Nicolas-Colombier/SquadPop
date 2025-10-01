@@ -15,7 +15,12 @@ serverConfigs.forEach(({ server, botToken }) => {
 
     // When the bot is ready, update the server status
     client.on('clientReady', async () => {
-        console.log(`Connected as : ${client.user.tag}`);
+        console.log(`Connected as : ${client.user.tag} on ${client.guilds.cache.size} servers.`);
+
+        // List of servers where the bot is connected
+        client.guilds.cache.forEach(guild => {
+            console.log(` - ${guild.name}`);
+        });
 
         // Register /connect for THIS bot
         try {
