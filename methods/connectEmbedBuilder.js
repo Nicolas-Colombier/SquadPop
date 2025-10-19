@@ -7,7 +7,7 @@ export async function buildConnectEmbed(server, client) {
     let url = baseLink?.endsWith("_join") ? baseLink : `${baseLink}_join`;
 
     if (url === '_join') {
-        url = 'https://browser.corrupted-infantry.com/';
+        url = 'https://squadbrowser.org/';
     }
 
     let curr = null, max = null, queue = 0;
@@ -25,7 +25,7 @@ export async function buildConnectEmbed(server, client) {
 
             curr = Number(attr.players ?? 0);
             max = Number((attr.maxPlayers ?? 0) + (attr.details?.squad_playerReserveCount ?? 0));
-            queue = Number(attr.details?.publicQueue ?? 0);
+            queue = Number(attr.details?.squad_publicQueue ?? 0);
 
             const mapRaw = attr.details?.map;
             map = (typeof mapRaw === "string" ? mapRaw.replace(/_/g, " ") : "Unknown") || "Unknown";
@@ -85,10 +85,10 @@ export async function buildConnectEmbed(server, client) {
             { name: "", value: "" },
 
             //Ligne 3
-            { name: "", value: "-# Squad must be running and at least one player must already be connected." }
+            { name: "", value: "-# Squad must be running" }
         )
         .setFooter({
-            text: "Powered by https://browser.corrupted-infantry.com",
+            text: "Powered by https://squadbrowser.org/",
         });
 
     const row = new ActionRowBuilder().addComponents(
