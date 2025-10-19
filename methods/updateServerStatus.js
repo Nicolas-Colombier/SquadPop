@@ -14,12 +14,14 @@ export async function updateServerStatus(client, serverConfig) {
 
         // Creation of the activity message
         const activityMessage = `${serverInfo.players}/${serverInfo.maxPlayers + serverInfo.details.squad_playerReserveCount}` +
-            `${serverInfo.details.publicQueue > 0 ? ` (+${serverInfo.details.publicQueue})` : ''}` +
+            `${serverInfo.details.squad_publicQueue > 0 ? ` (+${serverInfo.details.squad_publicQueue})` : ''}` +
             ` - ${serverInfo.details.map.replace(/_/g, ' ')}`;
 
         // Update the bot's activity
         client.user.setPresence({activities: [{name: activityMessage, type:4,}], status: 'online' });
         console.log(`Updated data for ${serverConfig.name} : ${activityMessage}`);
+
+        //console.log(serverInfo);
     } catch (error) {
         console.error(`Failed to update data for ${serverConfig.name}:`, error);
     }
