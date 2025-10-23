@@ -13,6 +13,7 @@ export async function buildConnectEmbed(server, client) {
     let curr = null, max = null, queue = 0;
     let map = "Unknown", nextMap = "Unknown";
     let factionOne = "Unknown", factionTwo = "Unknown";
+    let name = "Unknown"
 
     // Fetch server information from BattleMetrics API
     try {
@@ -26,6 +27,7 @@ export async function buildConnectEmbed(server, client) {
             curr = Number(attr.players ?? 0);
             max = Number((attr.maxPlayers ?? 0) + (attr.details?.squad_playerReserveCount ?? 0));
             queue = Number(attr.details?.squad_publicQueue ?? 0);
+            name = String(attr.name ?? "")
 
             const mapRaw = attr.details?.map;
             map = (typeof mapRaw === "string" ? mapRaw.replace(/_/g, " ") : "Unknown") || "Unknown";
@@ -51,6 +53,7 @@ export async function buildConnectEmbed(server, client) {
     const nextMapValue = `\`\`\`${nextMap}\`\`\``;
     const factionsValue = `\`\`\`${factionOne} vs ${factionTwo}\`\`\``;
 
+
     // Determine the color of the embed based on player count
     const color =
         playersValue === "Unknown"
@@ -68,7 +71,7 @@ export async function buildConnectEmbed(server, client) {
     // Build the embed message
     const embed = new EmbedBuilder()
         .setColor(color)
-        .setTitle(server?.name || "Server")
+        .setTitle(name || "Server")
         .setTimestamp()
         .setThumbnail(botAvatar)
         .addFields(
